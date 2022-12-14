@@ -63,7 +63,7 @@ def get_pie_chart(entered_site):
         title='Launch Success Rate For All Sites')
         return fig
     else:
-        filtered_df=spacex_df[spacex_df['Launch Site'] == enetered_site]
+        filtered_df=spacex_df[spacex_df['Launch Site'] == entered_site]
         filtered_df['outcome']=filtered_df['Class'].apply(lambda x: 'Success' if (x == 1) else 'Failure')
         filtered_df['counts'] = 1
         return px.pie(filtered_df, values='counts', names='outcome', title='Launch Success Rate For ' + entered_site)
@@ -73,7 +73,7 @@ def get_pie_chart(entered_site):
               [Input(component_id='site-dropdown', component_property='value'),
                Input(component_id='payload-slider', component_property='value')])
 def get_scatter_chart(entered_site, slider):
-    filtered_df = spacex_df[(slider[0] <= space_df['Payload Mass (kg)']) & (spacex_df['Payload Mass (kg)'] <= slider [1])]
+    filtered_df = spacex_df[(slider[0] <= spacex_df['Payload Mass (kg)']) & (spacex_df['Payload Mass (kg)'] <= slider [1])]
     if entered_site == 'ALL':
         return px.scatter(filtered_df,
                           x = 'Payload Mass (kg)', y='class',
@@ -83,7 +83,7 @@ def get_scatter_chart(entered_site, slider):
         filtered_df = filtered_df[filtered_df['Launch Site'] == entered_site] 
         filtered_df['outcome'] = filtered_df['class'].apply(lambda x: 'Success' if (x == 1) else 'Failure')
         filtered_df['counts'] = 1
-    return px.scatter (filtered_df,
+        return px.scatter (filtered_df,
                    x = 'Payload Mass (kg)', y='class',
                    color='Booster Version Category',
                    title='Launch Success Rate for ' + entered_site)                         
