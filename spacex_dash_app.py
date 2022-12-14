@@ -20,7 +20,7 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                                'font-size': 40}),
                                 # TASK 1: Add a dropdown list to enable Launch Site selection
                                 # The default select value is for ALL sites
-                                id='site-dropdown',
+                                dcc.Dropdown(id='site-dropdown',
                                         options=[
                                             {'label': 'All Sites', 'value': 'ALL'},
                                             {'label': 'CCAFS LC-40', 'value': 'CCAFS LC-40'},
@@ -83,7 +83,7 @@ def get_scatter_chart(entered_site, slider):
         filtered_df = filtered_df[filtered_df['Launch Site'] == entered_site] 
         filtered_df['outcome'] = filtered_df['class'].apply(lambda x: 'Success' if (x == 1) else 'Failure')
         filtered_df['counts'] = 1
-return px.scatter (filtered_df,
+    return px.scatter (filtered_df,
                    x = 'Payload Mass (kg)', y='class',
                    color='Booster Version Category',
                    title='Launch Success Rate for ' + entered_site)                         
